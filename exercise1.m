@@ -70,17 +70,17 @@ del = norm([xb-xa,yb-ya]);
 x = linspace(0,5,50);
 y = linspace(0,4,40);
 
-[ym, xm] = meshgrid(y, x);
+[ym2, xm2] = meshgrid(y, x);
 
-[infa, infb] = panelinf(xa,ya,xb,yb,xm,ym);
+[infa, infb] = panelinf(xa,ya,xb,yb,xm2,ym2);
 
 c = -0.15:0.05:0.15;
 
 figure
-contour(xm,ym,infa,c)
+contour(xm2,ym2,infa,c)
 
 figure
-contour(xm,ym,infb,c)
+contour(xm2,ym2,infb,c)
 
 % Discretised estimate for infa
 nv = 100;
@@ -93,16 +93,39 @@ ypos = 0.5*(ypos(1:end-1)+ypos(2:end));
 gammaA = linspace(1-1/(2*nv),1/(2*nv),nv)*del/nv;
 gammaB = linspace(1/(2*nv),1-1/(2*nv),nv)*del/nv;
 
-infaEst = zeros(size(xm));
+infaEst = zeros(size(xm2));
 infbEst = infaEst;
 
 for i = 1:nv
-    infaEst = infaEst+psipv(xpos(i),ypos(i),gammaA(i),xm,ym);
-    infbEst = infbEst+psipv(xpos(i),ypos(i),gammaB(i),xm,ym);
+    infaEst = infaEst+psipv(xpos(i),ypos(i),gammaA(i),xm2,ym2);
+    infbEst = infbEst+psipv(xpos(i),ypos(i),gammaB(i),xm2,ym2);
 end
 
 figure
-contour(xm,ym,infaEst,c)
+contour(xm2,ym2,infaEst,c)
 
 figure
-contour(xm,ym,infbEst,c)
+contour(xm2,ym2,infbEst,c)
+
+%% excercise 4
+np = 100;
+theta = (0:np)*2*pi/np;
+xs = cos(theta);
+ys = sin(theta);
+gamma = -2*sin(theta);
+
+psi = ym;
+
+% nested loop to add each panel's contributions to streamfunction
+for k = 1:np
+[infa, infb] = panelinf(xs(k), ys(k), xs(k+1), ys(k +1), xm, ym);
+gammaa = gamma(k);
+gammab = gamma(k+1);
+psi = psi+(gammaa*infa)+(gammab*infb);
+end
+
+
+% plot contours
+c = -1.75:0.25:1.75;
+figure
+contour(xm, ym ,psi ,c)
