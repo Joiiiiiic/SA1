@@ -124,8 +124,21 @@ gammab = gamma(k+1);
 psi = psi+(gammaa*infa)+(gammab*infb);
 end
 
-
 % plot contours
 c = -1.75:0.25:1.75;
-figure
+figure; hold on;
 contour(xm, ym ,psi ,c)
+plot(xs,ys);
+hold off
+
+%% exercise 5
+alpha = 0.1; % 0.1
+A = build_lhs(xs,ys);
+b = build_rhs(xs,ys,alpha);
+gam = A\b;
+
+disp(['total circulation: ', num2str(sum(gam)*(theta(2)-theta(1)))])
+
+figure
+plot(theta/pi,gam)
+axis([0 2 -2.5 2.5])
