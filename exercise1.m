@@ -106,3 +106,32 @@ contour(xm,ym,infaEst,c)
 
 figure
 contour(xm,ym,infbEst,c)
+
+%% excercise 4
+np = 100;
+theta = (0:np)*2*pi/np;
+% create array of vortex positions
+for i = 1:(np+1)
+xs(i) = cos(theta(i));
+ys(i) = sin(theta(i));
+gamma(i)=-2*sin(theta(i));
+end
+% calculate influence at each point
+for i = 1:nx
+for j = 1:ny
+xm(i,j) = xmin+(i-1)*(xmax-xmin)/(nx-1);
+ym(i,j) = ymin+(j-1)*(ymax-ymin)/(ny-1);
+psi(i,j) = ym(i,j);
+% nested loop to add each panel's contributions to streamfunction
+for k = 1:np
+[infa(i,j), infb(i,j)] = panelinf(xs(k), ys(k), xs(k+1), ys(k +1), xm(i,j), ym(i,j));
+gammaa = gamma(k);
+gammab = gamma(k+1);
+psi (i,j) = psi(i,j)+(gammaa*infa(i,j))+(gammab*infb(i,j));
+end
+end
+end
+% plot contours
+c = -1.75:0.25:1.75;
+figure
+contour(xm, ym ,psi ,c)
