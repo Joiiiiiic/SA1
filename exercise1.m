@@ -132,7 +132,7 @@ plot(xs,ys);
 hold off
 
 %% exercise 5
-alpha = 0.1; % 0.1
+alpha = 0.1;
 A = build_lhs(xs,ys);
 b = build_rhs(xs,ys,alpha);
 gam = A\b;
@@ -142,3 +142,9 @@ disp(['total circulation: ', num2str(sum(gam)*(theta(2)-theta(1)))])
 figure
 plot(theta/pi,gam)
 axis([0 2 -2.5 2.5])
+
+xlabel('$\theta / \pi$', 'Interpreter', 'latex')
+ylabel('$\gamma$', 'Interpreter', 'latex')
+ax = gca;
+ax.TickLabelInterpreter = 'latex';
+set(gca, 'FontSize', 14)
