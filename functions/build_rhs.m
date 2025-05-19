@@ -4,6 +4,6 @@ function rhsvec = build_rhs(xs,ys,alpha)
 psi = ys*cos(alpha) - xs*sin(alpha);
 
 rhsvec = zeros(length(xs),1);
-rhsvec(1:end-2) = - psi(1:end-2) + psi(2:end-1);
+rhsvec(1:end-2) = psi(2:end-1) - psi(1:end-2);
 
 end
