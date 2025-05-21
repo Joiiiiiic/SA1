@@ -1,6 +1,6 @@
 function [infa, infb] = refpaninf(del,X,Y)
-%UNTITLED5 Summary of this function goes here
-%   Detailed explanation goes here
+%Calculate influence coefficients for plate with ends (0,0) and (del,0). X
+%and Y are vectorised. 
     [row, col] = find(abs(Y) < 1e-5);
     Y(row,col) = 1e-5;
 

@@ -1,9 +1,8 @@
 function rhsvec = build_rhs(xs,ys,alpha)
-%UNTITLED5 Summary of this function goes here
-%   Detailed explanation goes here
+%Build RHS vector b to calcualte strength of the discretised vortex sheet
 psi = ys*cos(alpha) - xs*sin(alpha);
 
 rhsvec = zeros(length(xs),1);
-rhsvec(1:end-2) = psi(2:end-1) - psi(1:end-2);
+rhsvec(2:end-1) = psi(2:end-1) - psi(1:end-2);
 
 end

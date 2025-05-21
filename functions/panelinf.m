@@ -1,15 +1,13 @@
 function [infa, infb] = panelinf(xa,ya,xb,yb,xm,ym)
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+%Calculate influence coefficients for plate with ends (xa,ya) and (xb,ya). X
+%and Y are vectorised.
 t = [xb-xa,yb-ya];
 del = norm(t);
 t = t/norm(t);
-n = [-t(2)/t(1), 1];
-n = n/norm(n);
+n = [-t(2), t(1)];
 
-r = cat(3,xm-xa, ym-ya);
-X = r(:,:,1) * t(1) + r(:,:,2) * t(2);
-Y = r(:,:,1) * n(1) + r(:,:,2) * n(2);
+X = (xm-xa) * t(1) + (ym-ya) * t(2);
+Y = (xm-xa) * n(1) + (ym-ya) * n(2);
 
 [infa, infb] = refpaninf(del,X,Y);
 
