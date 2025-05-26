@@ -13,5 +13,15 @@ theta = [0,theta];
 theta_bla = 0.664/sqrt(Re)*sqrt(x);
 
 figure; hold on
-plot(x,theta)
-plot(x,theta_bla)
+plot(x, theta, 'DisplayName', '$\theta$ from Thwaites solution')
+plot(x, theta_bla, 'DisplayName', 'Blasius solution')
+
+xlabel('$x$', 'Interpreter', 'latex')
+ylabel('$\theta$', 'Interpreter', 'latex')
+
+legend('Interpreter', 'latex', 'FontSize', 16, 'Location', 'southeast')
+
+ax = gca;
+ax.TickLabelInterpreter = 'latex'; 
+set(gca, 'FontSize', 16)      
+box on

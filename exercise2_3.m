@@ -1,8 +1,8 @@
 clear 
 close all
 
-% ReL_list = [1e3, 1e4, 1e5];
-ReL_list = logspace(3,8,500);
+ReL_list = [1e3, 1e4, 1e5];
+% ReL_list = logspace(3,8,500);
 dudx_list = [-0.5];
 ue_start = 1;
 
@@ -19,33 +19,33 @@ for k = 1:length(ReL_list)
 
         x = 0:0.01:1;
         ue = 1+x*dudx;
-        
-        f = ueintbit(x(1:end-1),ue(1:end-1),x(2:end),ue(2:end));
-
-        theta = zeros(size(x));
-        theta(2:end) = sqrt(cumsum(f)*0.45/ReL.*ue(2:end).^(-6));
-        
-        Rethet = ReL.*ue.*theta; 
-        
-        m = -ReL*theta.^2*dudx;
+        theta = zeros(1,length(x));
         
         laminar = true;
-        i = 1;
+        i = 2;
+        f = 0;
         
-        while laminar && i < length(m)
-            H = thwaites_lookup(m(i));
+        while laminar && i < length(x)
+            f = f+ueintbit(x(i-1),ue(i-1),x(i),ue(i));
+            theta(i) = sqrt(f*0.45/ReL*ue(i)^(-6));
+            
+            Rethet = ReL*ue(i)*theta(i); 
+            
+            m = -ReL*theta(i)^2*dudx;
+
+            H = thwaites_lookup(m);
             He = laminar_He(H);
-            if log(Rethet(i)) >= 18.4*He - 21.74
+            if log(Rethet) >= 18.4*He - 21.74
                 laminar = false;
-                disp([x(i) Rethet(i)/1000])
+                disp([x(i) Rethet/1000])
                 int(k,j) = x(i);
-                % disp(['Natural transition at ' num2str(x(i)) ...
-                % ' with Rethet ' num2str(Rethet(i))])
-            elseif m(i)>= 0.09
+                disp(['Natural transition at ' num2str(x(i)) ...
+                ' with Rethet ' num2str(Rethet)])
+            elseif m>= 0.09
                 laminar = false;
                 ils(k,j) = x(i);
-                % disp(['Laminar separation at ' num2str(x(i)) ...
-                % ' with Rethet ' num2str(Rethet(i))])
+                disp(['Laminar separation at ' num2str(x(i)) ...
+                ' with Rethet ' num2str(Rethet)])
             end
 
             i = i+1;

@@ -7,33 +7,36 @@ ue_start = 1;
 
 table = zeros(length(ReL_list), length(dudx_list), 2);
 
+x = 0:0.01:1;
+
 for k = 1:length(ReL_list)
     for j = 1:length(dudx_list)
         ReL = ReL_list(k);
         dudx = dudx_list(j);
 
-        x = 0:0.01:1;
         ue = 1+x*dudx;
-        
-        f = ueintbit(x(1:end-1),ue(1:end-1),x(2:end),ue(2:end));
-        theta = sqrt(cumsum(f)*0.45/ReL.*ue(2:end).^(-6));
-        theta = [0,theta];
-        
-        Retheta = ReL.*ue.*theta; 
-        
-        m = -ReL*theta.^2*dudx;
+        theta = zeros(1,length(x));
         
         laminar = true;
-        i =1;
+        i = 2;
         
-        while laminar && i < length(m)
-            H = thwaites_lookup(m(i));
+        f = 0;
+        
+        while laminar && i < length(x)
+            f = f+ueintbit(x(i-1),ue(i-1),x(i),ue(i));
+            theta(i) = sqrt(f*0.45/ReL.*ue(i).^(-6));
+            
+            Retheta = ReL*ue(i)*theta(i); 
+            
+            m = -ReL*theta(i)^2*dudx;
+
+            H = thwaites_lookup(m);
             He = laminar_He(H);
-            if log(Retheta(i)) >= 18.4*He - 21.74
+            if log(Retheta) >= 18.4*He - 21.74
                 laminar = false;
-                disp([x(i) Retheta(i)/1000])
+                disp([x(i) Retheta/1000])
                 table(k,j,1) = x(i);
-                table(k,j,2) = Retheta(i);
+                table(k,j,2) = Retheta;
             end
             i = i+1;
         end
