@@ -32,5 +32,8 @@ ax = gca;
 ax.TickLabelInterpreter = 'latex';
 set(gca, 'FontSize', 16)
 
-
+% plot contours
+c = -1.75:0.25:1.75;
+figure
+contour(xm, ym ,psi ,c)
 
