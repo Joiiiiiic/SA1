@@ -13,11 +13,11 @@ theta = [0,theta];
 theta_bla = 0.664/sqrt(Re)*sqrt(x);
 
 figure; hold on
-plot(x, theta, 'DisplayName', '$\theta$ from Thwaites solution')
+plot(x, theta, 'DisplayName', '$\theta/L$ from Thwaites solution')
 plot(x, theta_bla, 'DisplayName', 'Blasius solution')
 
-xlabel('$x$', 'Interpreter', 'latex')
-ylabel('$\theta$', 'Interpreter', 'latex')
+xlabel('$x/L$', 'Interpreter', 'latex')
+ylabel('$\theta/L$', 'Interpreter', 'latex')
 
 legend('Interpreter', 'latex', 'FontSize', 16, 'Location', 'southeast')
 

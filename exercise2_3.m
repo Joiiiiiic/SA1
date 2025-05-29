@@ -1,8 +1,8 @@
 clear 
 close all
 
-ReL_list = [1e3, 1e4, 1e5];
-% ReL_list = logspace(3,8,500);
+% ReL_list = [1e3, 1e4, 1e5];
+ReL_list = logspace(3,8,500);
 dudx_list = [-0.5];
 ue_start = 1;
 

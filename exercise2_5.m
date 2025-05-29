@@ -1,9 +1,9 @@
 clear
 global Re ue0 duedx
 
-Re_list = [10^7];
-Re_name = {'10^7'};
-duedx_list = [-0.3, -0.6, -0.9];
+Re_list = [10^6 10^7 10^8];
+Re_name = {'10^6' '10^7' '10^8'};
+duedx_list = [-0.6];
 
 x_separate = zeros(length(Re_list), length(duedx_list));
 
@@ -39,7 +39,7 @@ p.Annotation.LegendInformation.IconDisplayStyle = 'off';
 ylim([0 inf])
 xlabel('$x/L$', 'Interpreter', 'latex')
 ylabel('$H_E$', 'Interpreter', 'latex')
-legend('Interpreter', 'latex', 'FontSize', 14, 'Location', 'best')
+legend('Interpreter', 'latex', 'FontSize', 16, 'Location', 'best')
 x_text = x(end) * 0.1; 
 text(x_text, 1.46 + 0.05, '$H_E = 1.46$', ...
     'Interpreter', 'latex', 'FontSize', 16, 'Color', 'k')

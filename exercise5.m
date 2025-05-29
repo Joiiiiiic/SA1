@@ -23,7 +23,7 @@ A = build_lhs(xs,ys);
 b = build_rhs(xs,ys,alpha);
 gam = A\b;
 
-disp(['total circulation: ', num2str(sum(gam)*(theta(2)-theta(1)))])
+disp(['total circulation: ', num2str(sum(gam(1:end-1))*(theta(2)-theta(1)))])
 
 figure
 plot(theta/pi,gam)

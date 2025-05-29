@@ -5,7 +5,7 @@ ReL_list = [1e6, 1e7, 1e8];
 dudx_list = [-0.2,0,0.2];
 ue_start = 1;
 
-table = zeros(length(ReL_list), length(dudx_list), 2);
+table = zeros(length(ReL_list)*length(dudx_list), 4);
 
 x = 0:0.01:1;
 
@@ -35,8 +35,7 @@ for k = 1:length(ReL_list)
             if log(Retheta) >= 18.4*He - 21.74
                 laminar = false;
                 disp([x(i) Retheta/1000])
-                table(k,j,1) = x(i);
-                table(k,j,2) = Retheta;
+                table((k-1)*length(dudx_list)+j,:) = [ReL dudx x(i) Retheta/1000];
             end
             i = i+1;
         end

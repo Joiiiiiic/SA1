@@ -3,11 +3,9 @@ close all
 
 global Re ue0 duedx
 
-ReL_list = [1e4, 1e5, 1e6, 1e7];
-Re_name = {'10^4', '10^5', '10^6', '10^7'};
-
-
-duedx = -0.25;
+ReL_list = [1e6 1e7];
+Re_name = {'10^6' '10^7'};
+duedx = 0;
 ue_start = 1;
 He0 = 1.57258;
 
