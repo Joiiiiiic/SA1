@@ -31,19 +31,19 @@ while laminar && i <= length(x)
     duedx = duedx_list(i-1);
     f = f+ueintbit(x(i-1),ue(i-1),x(i),ue(i));
     theta(i-1) = sqrt(f*0.45/Re*ue(i)^(-6));
-    
+
     Rethet = Re*ue(i)*theta(i-1); 
-    
+
     m = -Re*theta(i-1)^2*duedx;
 
     H(i) = thwaites_lookup(m);
     He(i) = laminar_He(H(i));
     if log(Rethet) >= 18.4*He(i) - 21.74
         laminar = false;
-        int = i;
+        int = i-1;
     elseif m>= 0.09
         laminar = false;
-        ils = i;
+        ils = i-1;
         He(i) = 1.51509;
     end
     delE(i) = He(i)*theta(i-1);
@@ -62,11 +62,11 @@ while ~laminar && i <= length(x) && its==0
     He(i) = delE(i)/theta(i-1);
     H(i) = (11*He(i)+15)/(48*He(i)-59);
     if He(i) < 1.46
-        its = i;
+        its = i-1;
         H(i:end) = 2.803;
         He(i:end) = 1.46;
     elseif He(i)> 1.58 && ils ~= 0 && itr == 0
-        itr = i;
+        itr = i-1;
     end
     % thick0 = [theta(i); delE(i)];
 
@@ -75,10 +75,8 @@ end
 
 
 while i <= length(x) && its~=0
-    theta(i-1) = theta(i-2)*(ue(i-1)/ue(i))^(H+2);
+    theta(i-1) = theta(i-2)*(ue(i-1)/ue(i))^(H(i)+2);
     i = i+1;
 end
 
 delstar = H(2:end).*theta;
-
-

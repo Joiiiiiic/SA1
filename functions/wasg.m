@@ -30,7 +30,8 @@ function WASG
 %  d - delta, reset the rate of displacement of nodes when using the arrow
 %      keys.
 
-clear, close all
+clear, 
+%close all
 
 b=0;p=0;
 delta=1e-4;

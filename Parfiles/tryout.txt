@@ -1,0 +1,4 @@
+Section identifier              : lissaman7769
+Number of panels                : 400
+Reynolds number                 : 2e7
+Range of incidences (degrees)   : -20:1:20

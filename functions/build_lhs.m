@@ -12,8 +12,18 @@ for j = 1:np
 end
 
 lhsmat = zeros(np+1,np+1);
-lhsmat(2:np,:) = psip(1:end-1,:)-psip(2:end,:);
-lhsmat(1,1) = 1;
-lhsmat(np+1,end) = 1;
+lhsmat(2:np,:) = psip(2:end,:) -psip(1:end-1,:);
+
+% impletment kutta condition
+lhsmat(1,1:3) = [1, -1, 0.5];
+lhsmat(1,end-2:end-1) = [-0.5,1];
+
+
+lhsmat(end,2:3) = [-1, 0.5];
+lhsmat(end,end-2:end) = [-0.5,1,-1];
+
+% % originally when unp+1 = u1 = 0
+% lhsmat(1,1) = 1;
+% lhsmat(np+1,end) = 1;
 
 end

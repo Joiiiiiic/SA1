@@ -62,10 +62,16 @@ cp8 = 1 - gams.^2;
 
 figure(2)
 plot(xsin,-cpex,xs1,-cp1,'--',xs2,-cp2,'-.',xs4,-cp4,'-+',xs8,-cp8,'-x')
-xlabel('x/c')
-ylabel('-c_p')
-title('Van de Vooren cps; varying panel size')
+xlabel('$x/c$', 'Interpreter', 'latex')
+ylabel('$-c_p$', 'Interpreter', 'latex')
+% title('Van de Vooren cps; varying panel size')
 legend('exact','100pans','200pans','400pans','800pans')
+ax = gca;
+ax.TickLabelInterpreter = 'latex';
+set(gca, 'FontSize', 18)
+box on
+legend('Interpreter', 'latex', 'FontSize', 16, 'Location', 'best')
+
 
 figure(3)
 plot(xsin,-cpex,xs1,-cp1,'--')
